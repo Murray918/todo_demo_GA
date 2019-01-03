@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+ <title>Todo</title>
+ <meta charset="utf-8">
+</head>
+<body>
+  <!-- each header contains a h1 element there should not be more than one in each header -->
+ <header>
+   <h1>Todo List</h1>
+ </header>
+ <!-- this is the input for the html -->
+ <label>New Task</label>
+ <input type="text" id="add-task-input">
+ <!-- make sure it is type button and not submit -->
+ <button type="button" id="add-task-button">Add Task</button>
+ <section>
+
+   <header>
+     <h2>Things to do</h2>
+   </header>
+   <ul id="to-do-list">
+     <li>Thing One</li>
+     <li>Thing Two</li>
+   </ul>
+ </section>
+ <section>
+   <header>
+     <h2>Things Done</h2>
+   </header>
+   <ul id="done-list">
+     <li>Thing Three</li>
+     <li>Thing Four</li>
+   </ul>
+ </section>
+ <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha256-3edrmyuQ0w65f8gfBsqowzjJe2iM6n0nKciPUp8y+7E=" crossorigin="anonymous"></script>
+ <script src="app.js"></script>
+</body>
+</html>
+
+
+
+<script type="text/javascript">
+// <!-- add a task -->
+$("#add-task-button").click(function() {
+  //if you set pass something to this function it will reset the value
+  let task = $("#add-task-input").val()
+  //if the input is empty alert the user
+  if(task == "") {
+    alert("Task cannot be blank")
+  }
+  // otherwise create the todo
+  else {
+    $li = $("<li>" + task + "</li>")
+    $button = $("<button>Done</button>")
+    $button.click(completeTask)
+    $li.append($button)
+    $("#to-do-list").append($li)
+    $("#add-task-input").val("")
+  }
+})
+// <!-- Mark a Todo as completed -->
+//lets look at the event object
+let completeTask = function(event) {
+  //look at evetn
+  console.log(event)
+  // make sure to disable the event
+  $(event.target).off()
+  // add this after you remove
+  $(event.target).click(deleteTask)
+}
+// <!-- remove a todo -->
+let deleteTask = function(event) {
+  $(event.target.parentElement).remove()
+}
+</script>
